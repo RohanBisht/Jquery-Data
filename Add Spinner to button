@@ -1,0 +1,25 @@
+/**** Submit Button ****/
+ <button type="submit" class="btn blue btn-circle upload_btn" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Uploading Data"> Upload Data </button>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('#upload_performance').on('submit',function(event){
+                $('.upload_btn').button('loading');
+                event.preventDefault();
+                $.ajax({
+                        url : "<?php echo site_url() ?>specification/uploadperformance",
+                        type : "post",
+                        data : new FormData(this),
+                        contentType : false,
+                        processData : false,
+                        cache : false,
+                        success : function(result) {
+                            //document.write(result);
+                             $('.upload_btn').button('reset');
+                            $('#upload_performance')[0].reset();
+                            $('#message').html(result).fadeIn().fadeOut(5000);
+                        }
+                });
+            });
+        });
+    </script>
