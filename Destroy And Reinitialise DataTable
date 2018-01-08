@@ -1,0 +1,2 @@
+    $('table.table').DataTable().destroy();
+    $('table.table').dataTable({"bPaginate": false , "info" : true});
