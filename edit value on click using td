@@ -1,0 +1,58 @@
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', function() {
+                var $this = $(this);
+                var $input = $('<input>', {
+                    value: $this.text(),
+                    id : $this.attr('id'),
+                    type: 'text',
+                    blur: function() {
+                       $this.text(this.value);
+                       save(this.id , this.value); /*** Calling function onblur ***/
+                    },
+                    keyup: function(e) {
+                       if (e.which === 13) $input.blur();
+                    }
+                }).appendTo( $this.empty() ).focus();
+            });
+        }); /*** DOCUMENT READY ENDS ***/
+
+       function save(id , value)
+       {
+            $.ajax({
+                url         : "<?php echo site_url() ?>specification/editperformance",
+                type        : "post",
+                data        : {id : id , value : value},
+                dataType    : "text",
+                success     : function(result) {
+                                $('#message').html(result).fadeIn().fadeOut(5000);
+                                setInterval(function(){
+                                    location.reload();
+                                },2000);
+                }
+            });
+       }
+    </script>
+    
+    /***** Updating Values *****/
+    public function editperformance()
+	{
+		$id 	= $this->input->post('id');
+		$value 	= $this->input->post('value');
+		$where  = array('performance_id' => $id );
+		$data 	= array('heading_data' 	 => $value );
+		if (!empty($data)) {
+		 	$result = $this->App_model->update('tbl_performance_data', $data, $where);
+		 	if(!empty($result))
+		 	{
+		 		echo "<h4 style='color : green' class='text-center'><b>DATA UPDATED SUCCESSFULLY</b></h4>";
+		 	}
+		 	else
+		 	{
+		 		echo "<h4 style='color : red' class='text-center'><b>FAILED TO UPDATE</b></h4>";
+		 	}
+		 } else {
+		 	echo "<h4 style='color : red' class='text-center'><b>PLEASE FILL VALUE</b></h4>";
+		 }
+		  
+	}
