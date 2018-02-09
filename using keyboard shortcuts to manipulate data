@@ -1,0 +1,15 @@
+/**** First Add shortcut.js ****/
+
+<script type="text/javascript">
+    shortcut.add("ctrl+z", function() {
+        if($('#banner_image').length == 0)// use this if you are using id to check
+        {
+          $( "#banners" ).prepend( '<td style="border:1px solid #222;" id="banner_image"><?php if(!empty($this->session->userdata["user_logged_in"]) && $this->session->userdata["user_logged_in"]["admin_id"] != 2) : ?><a href="javascript:void(0)" id="close_btn"><span id="close" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">&times;</span></a><!--  <img src="<?php echo base_url() ?>assets/catalogue/images/attTitle_new.jpg" alt="" style="width:100%" /> --><?php endif; ?><img src="<?php echo base_url() ?>assets/catalogue/images/attTitle_new.jpg" alt="" style="width:100%" /></td>' );
+          
+        }
+        if($('#series_banner').length == 0)
+        {
+          $("#banners").append('<td style="border:1px solid #222;padding: 2px 20px;text-align: center;width: 30%;font-weight: 900;" id="series_banner"><?php if(!empty($this->session->userdata["user_logged_in"]) && $this->session->userdata["user_logged_in"]["admin_id"] != 2): ?><a href="javascript:void(0)" id="close_btn"><span id="close" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">&times;</span></a><!--  <img src="<?php echo base_url() ?>uploads/new_series_images/<?php echo $performance[0]["series_logo"] ?>" alt="" style="width:100%;max-width: 358px;" /> --><?php endif; ?><img src="<?php echo base_url() ?>uploads/new_series_images/<?php echo $performance[0]['series_logo'] ?>" alt="" style="width:100%;max-width: 358px;" /></td>');
+        }
+    }); 
+</script>
